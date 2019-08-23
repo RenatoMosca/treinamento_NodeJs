@@ -8,7 +8,8 @@ module.exports = {
     },
 
     async store(req, res){
-        const {autor, imagem, likes, descricao} = req.body;
+        const {autor, likes, descricao} = req.body;
+        const imagem = "http://localhost:3030/files/" + req.file.originalname;
         const posts = await post.create({
             autor,
             imagem, 

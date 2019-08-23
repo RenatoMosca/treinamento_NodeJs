@@ -1,5 +1,7 @@
 const express = require('express');
 const routes = new express.Router();
+const uploadsConfig = require('./config/Uploads');
+const multer = require('multer');
 
 const postController = require('./controllers/postController')
 
@@ -18,9 +20,11 @@ routes.get('/json',(req, res)=>{
     })
 })
 
+const uploads = multer(uploadsConfig)
+
 //rotas posts
 routes.get('/posts', postController.index);
-routes.post('/posts', postController.store);
+routes.post('/posts', uploads.single('imagem'), postController.store);
 routes.put('/posts', postController.update);
 routes.delete('/posts', postController.delete);
 
